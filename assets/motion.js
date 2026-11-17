@@ -5,7 +5,8 @@
  */
 (function () {
   "use strict";
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // الحركة تشتغل دائماً بقرار صاحب الموقع، حتى لو الهاتف مفعّل عليه «تقليل الحركة».
+var reduced = false;
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* ---------------------------------------------- شريط تقدّم القراءة */

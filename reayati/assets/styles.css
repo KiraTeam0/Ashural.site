@@ -308,13 +308,7 @@ footer a { color: var(--teal-deep); }
 }
 
 /* ------------------------------------------------ احترام تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important; scroll-behavior: auto !important;
-  }
-  [data-reveal] { opacity: 1; transform: none; }
-}
+
 
 
 /* ===== معرض لقطات التطبيق — شريط أفقي ينساب باللمس ===== */
@@ -409,8 +403,14 @@ footer a { color: var(--teal-deep); }
   .floaty.has-sm { left: var(--ml) !important; top: var(--mt) !important; }
   .ekg { height: 56px; margin-top: 26px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .floaties, .scroll-progress { display: none; }
-  .ekg .beat { stroke-dasharray: none; animation: none; }
-  .ekg .heart, .shot img, .card.in .ico { animation: none; }
+
+
+/* الخلفية الملوّنة تسبح وحدها (التمرير يحرّكها أيضاً عبر transform — هذي translate/scale فلا تتعارض). */
+.aurora span { animation: aurora-drift 16s ease-in-out infinite alternate; }
+.aurora .b2 { animation-duration: 21s; animation-delay: -6s; }
+.aurora .b3 { animation-duration: 25s; animation-delay: -11s; }
+@keyframes aurora-drift {
+  0% { translate: 0 0; scale: 1; }
+  50% { translate: 50px -35px; scale: 1.12; }
+  100% { translate: -40px 30px; scale: .94; }
 }

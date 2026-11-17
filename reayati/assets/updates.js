@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   posts.forEach((p, i) => box.appendChild(card(p, i)));
 
   // البطاقات انضافت بعد تشغيل مراقب الظهور، فنشغّلها هنا.
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+  if (!("IntersectionObserver" in window)) {
     box.querySelectorAll("[data-reveal]").forEach((n) => n.classList.add("in"));
     return;
   }

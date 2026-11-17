@@ -8,7 +8,8 @@
 /* ===== رابط استمارة التسجيل — مكان واحد يتغيّر منه كل أزرار «سجّل». ===== */
 const FORM_URL = "https://forms.gle/1p4sUfF9d8Pf1s6Y8";
 
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// الحركة تشتغل دائماً بقرار صاحب الموقع، حتى لو الهاتف مفعّل عليه «تقليل الحركة».
+const reduced = false;
 
 /* ------------------------------------------------------------ الاستمارة */
 function wireFormLinks() {

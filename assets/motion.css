@@ -65,8 +65,4 @@
 }
 @keyframes ripple { to { transform: scale(3.2); opacity: 0; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-net, .hero-orb, .pulse-blip, .scroll-progress { display: none; }
-  .hero h1 span { animation: none; color: var(--brand-bright); background: none; }
-  .phone-screen { animation: none; }
-}
+
