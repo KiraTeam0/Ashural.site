@@ -1,0 +1,72 @@
+/*
+ * أشورال — حركات رسومية للصفحة الرئيسية.
+ * كلها تحسينية: بلا جافاسكربت أو مع «تقليل الحركة» تبقى الصفحة كاملة.
+ */
+
+/* شريط تقدّم القراءة أعلى الصفحة */
+.scroll-progress {
+  position: fixed; top: 0; inset-inline: 0; height: 3px; z-index: 1000;
+  background: linear-gradient(90deg, var(--brand), var(--brand-bright));
+  transform-origin: right center; transform: scaleX(0);
+  box-shadow: 0 0 12px rgba(76, 217, 168, .55); pointer-events: none;
+}
+
+/* شبكة النقاط المتصلة خلف البطل */
+.hero-net { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .85; }
+.hero .wrap { position: relative; }
+
+/* هالات ضوء تسبح ببطء */
+.hero-orb {
+  position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; opacity: .32;
+  animation: orb-drift 18s ease-in-out infinite alternate;
+}
+.hero-orb.o1 { width: 420px; height: 420px; background: #1f7a66; top: -140px; inset-inline-start: -120px; }
+.hero-orb.o2 { width: 340px; height: 340px; background: #4cd9a8; bottom: -160px; inset-inline-end: -80px; opacity: .18; animation-duration: 22s; }
+@keyframes orb-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(60px, 40px, 0) scale(1.15); }
+}
+
+/* لمعة تمرّ على كلمة «نبض» */
+.hero h1 span {
+  background: linear-gradient(100deg, var(--brand-bright) 0%, #b9ffe6 22%, var(--brand-bright) 44%, var(--brand-bright) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shine 4.5s ease-in-out 1.2s infinite;
+}
+@keyframes shine { 0% { background-position: 120% 0; } 55%, 100% { background-position: -130% 0; } }
+
+/* نبضة ضوء تجري على خط النبض */
+.pulse-blip {
+  position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: #d9fff0; pointer-events: none; opacity: 0;
+  box-shadow: 0 0 0 4px rgba(76, 217, 168, .25), 0 0 22px 6px rgba(76, 217, 168, .75);
+  transition: opacity .4s;
+}
+.pulse-blip.on { opacity: 1; }
+
+/* بقعة ضوء تتبع المؤشّر على البطاقات */
+.spot { position: relative; overflow: hidden; }
+.spot::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(76, 217, 168, .13), transparent 65%);
+}
+.spot:hover::after { opacity: 1; }
+
+/* الهاتف يطفو */
+.phone-screen { animation: phone-float 6s ease-in-out infinite; }
+@keyframes phone-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* أزرار: موجة عند الضغط */
+.btn-primary, .btn-ghost, .form-submit { position: relative; overflow: hidden; }
+.ripple {
+  position: absolute; border-radius: 50%; transform: scale(0); pointer-events: none;
+  background: rgba(255, 255, 255, .45); animation: ripple .65s ease-out forwards;
+}
+@keyframes ripple { to { transform: scale(3.2); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-net, .hero-orb, .pulse-blip, .scroll-progress { display: none; }
+  .hero h1 span { animation: none; color: var(--brand-bright); background: none; }
+  .phone-screen { animation: none; }
+}

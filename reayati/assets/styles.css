@@ -337,3 +337,80 @@ footer a { color: var(--teal-deep); }
 /* صفحة فيسبوك (Page Plugin) — بالوسط، ولا تتجاوز عرض الهاتف. */
 .fb-frame { display: flex; justify-content: center; margin-top: 8px; }
 .fb-frame iframe { max-width: 100%; border-radius: 14px; background: #fff; }
+
+/* ====================================================================
+ * حركات رسومية — رعايتي (assets/motion.js يضيف العناصر المتحرّكة).
+ * ==================================================================== */
+
+/* شريط تقدّم القراءة */
+.scroll-progress {
+  position: fixed; top: 0; inset-inline: 0; height: 3px; z-index: 100;
+  background: linear-gradient(90deg, var(--teal-deep), var(--teal), var(--amber));
+  transform-origin: right center; transform: scaleX(0); pointer-events: none;
+}
+
+/* أيقونات طبية تطفو حول البطل */
+.hero > .wrap { position: relative; z-index: 1; }
+.floaties { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.floaty {
+  position: absolute; width: var(--s, 44px); height: var(--s, 44px); opacity: 0;
+  animation: floaty-in .9s var(--ease) var(--in, 0s) forwards, floaty-bob var(--dur, 7s) ease-in-out var(--in, 0s) infinite;
+}
+.floaty svg { width: 100%; height: 100%; display: block; transform: translate3d(var(--px, 0), var(--py, 0), 0); transition: transform .6s var(--ease); }
+@keyframes floaty-in { to { opacity: var(--op, .85); } }
+@keyframes floaty-bob {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -14px; rotate: var(--rot, 8deg); }
+}
+
+/* خط نبض القلب تحت أزرار البطل */
+.ekg { position: relative; max-width: 560px; height: 70px; margin: 34px auto 0; }
+.ekg svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.ekg .base { fill: none; stroke: var(--line); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.ekg .beat {
+  fill: none; stroke: var(--teal); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  vector-effect: non-scaling-stroke; stroke-dasharray: 160 1040; stroke-dashoffset: 1200;
+  filter: drop-shadow(0 0 6px rgba(20, 184, 166, .45));
+  animation: ekg-run 2.8s linear infinite;
+}
+@keyframes ekg-run { to { stroke-dashoffset: 0; } }
+.ekg .heart {
+  position: absolute; inset-inline-start: -6px; top: 50%; width: 34px; height: 34px; margin-top: -17px;
+  color: #ef4f5f; animation: heart-beat 1.4s ease-in-out infinite; filter: drop-shadow(0 4px 10px rgba(239, 79, 95, .35));
+}
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); } 14% { transform: scale(1.22); } 28% { transform: scale(1); } 42% { transform: scale(1.14); } 56% { transform: scale(1); }
+}
+
+/* لقطات التطبيق تطفو بتتابع */
+.shot img { animation: shot-float 6s ease-in-out infinite; }
+.shot:nth-child(2n) img { animation-delay: -1.5s; }
+.shot:nth-child(3n) img { animation-delay: -3s; }
+.shot:nth-child(4n) img { animation-delay: -4.5s; }
+@keyframes shot-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.shot:hover img { animation-play-state: paused; }
+
+/* أيقونة البطاقة تقفز أول ما تظهر */
+.card.in .ico { animation: ico-pop .7s var(--ease) calc(var(--d, 0ms) + 250ms) backwards; }
+@keyframes ico-pop { 0% { transform: scale(.4) rotate(-20deg); opacity: 0; } 70% { transform: scale(1.15) rotate(6deg); opacity: 1; } 100% { transform: none; } }
+
+/* موجة عند ضغط الأزرار */
+.btn { position: relative; overflow: hidden; }
+.ripple {
+  position: absolute; border-radius: 50%; transform: scale(0); pointer-events: none;
+  background: rgba(255, 255, 255, .5); animation: ripple .65s ease-out forwards;
+}
+.btn-ghost .ripple { background: rgba(20, 184, 166, .22); }
+@keyframes ripple { to { transform: scale(3.2); opacity: 0; } }
+
+@media (max-width: 640px) {
+  .floaty { --s: 32px !important; }
+  .floaty.hide-sm { display: none; }
+  .floaty.has-sm { left: var(--ml) !important; top: var(--mt) !important; }
+  .ekg { height: 56px; margin-top: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floaties, .scroll-progress { display: none; }
+  .ekg .beat { stroke-dasharray: none; animation: none; }
+  .ekg .heart, .shot img, .card.in .ico { animation: none; }
+}
