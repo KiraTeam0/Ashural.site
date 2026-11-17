@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>أشورال | Ashural — تقنية تحمل نبض الرعاية الحقيقية</title>
+<meta name="description" content="أشورال شركة عراقية للتقنية مقرها البصرة، تبني منصات رقمية موثوقة للخدمات الأساسية، وأول منتجاتها تطبيق رعايتي للرعاية التمريضية المنزلية." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0f0e;
+    --panel:#101917;
+    --panel-2:#141f1c;
+    --line:#243430;
+    --line-soft:#1a2622;
+    --slate:#8a9a94;
+    --slate-dim:#5b6b66;
+    --paper:#edf3f0;
+    --brand:#2b7a6e;
+    --brand-bright:#4cd9a8;
+    --brand-deep:#0f2e28;
+    --radius:16px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Cairo', system-ui, sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    color:var(--brand-bright);
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--brand-bright);
+    box-shadow:0 0 0 4px rgba(76,217,168,0.15);
+    flex-shrink:0;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,15,14,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:74px;
+  }
+  .brand-lockup{display:flex; align-items:center; gap:12px;}
+  .brand-lockup .logo-mark{width:34px; height:34px; flex-shrink:0;}
+  .brand-lockup .name{font-weight:800; font-size:19px; letter-spacing:0.01em;}
+  .brand-lockup .name b{color:var(--brand-bright); font-weight:800;}
+  .nav-links{display:flex; align-items:center; gap:34px;}
+  .nav-links a{
+    font-size:14.5px; color:var(--slate); font-weight:600;
+    transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--paper);}
+  .nav-cta{
+    background:var(--brand); color:#fff; font-weight:700; font-size:14px;
+    padding:11px 22px; border-radius:100px;
+    border:1px solid var(--brand);
+    transition:background .2s, transform .2s;
+  }
+  .nav-cta:hover{background:#246a5f; transform:translateY(-1px);}
+  .nav-mobile-toggle{display:none;}
+
+  /* ===== HERO ===== */
+  .hero{position:relative; padding:96px 0 70px; overflow:hidden;}
+  .hero-grid-bg{
+    position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(ellipse 60% 50% at 50% 20%, black 30%, transparent 75%);
+            mask-image:radial-gradient(ellipse 60% 50% at 50% 20%, black 30%, transparent 75%);
+    opacity:0.5;
+  }
+  .hero-content{position:relative; max-width:760px;}
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 58px);
+    font-weight:800;
+    line-height:1.28;
+    margin:22px 0 24px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 span{color:var(--brand-bright);}
+  .hero p.lead{
+    font-size:17.5px; color:var(--slate); max-width:560px; margin-bottom:36px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary, .btn-ghost{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:700; font-size:15px; padding:14px 26px; border-radius:100px;
+    transition:all .2s;
+  }
+  .btn-primary{background:var(--brand-bright); color:#06110d; border:1px solid var(--brand-bright);}
+  .btn-primary:hover{background:#65e3b6; transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--paper); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--slate); background:var(--panel);}
+
+  /* pulse signature */
+  .pulse-wrap{
+    position:relative; margin-top:64px; height:150px;
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .pulse-wrap svg{width:100%; height:100%; display:block;}
+  .pulse-line{
+    fill:none; stroke:var(--brand-bright); stroke-width:2.2;
+    stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:draw 2.6s ease-out forwards, glow 3.5s ease-in-out 2.6s infinite;
+    filter:drop-shadow(0 0 6px rgba(76,217,168,0.45));
+  }
+  .pulse-line-dim{
+    fill:none; stroke:var(--line); stroke-width:1.4;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+  @keyframes glow{
+    0%,100%{opacity:1;}
+    50%{opacity:0.6;}
+  }
+  .pulse-caption{
+    display:flex; justify-content:space-between; margin-top:14px;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--slate-dim);
+  }
+
+  /* ===== SECTION GENERIC ===== */
+  section{padding:88px 0;}
+  section.alt{background:var(--panel); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{
+    font-size:clamp(26px,3.4vw,36px); font-weight:800; margin-top:16px; line-height:1.4;
+  }
+  .section-head p{color:var(--slate); margin-top:14px; font-size:15.5px;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ===== ABOUT / PILLARS ===== */
+  .about-layout{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .about-text p{color:var(--slate); font-size:15.5px; margin-bottom:16px;}
+  .about-text p:last-child{margin-bottom:0;}
+  .pillars{display:flex; flex-direction:column; gap:0;}
+  .pillar{
+    display:flex; gap:20px; padding:24px 0;
+    border-top:1px solid var(--line-soft);
+  }
+  .pillar:last-child{border-bottom:1px solid var(--line-soft);}
+  .pillar-mark{
+    font-family:'IBM Plex Mono', monospace; color:var(--brand-bright);
+    font-size:13px; font-weight:600; flex-shrink:0; padding-top:2px;
+  }
+  .pillar h3{font-size:17px; font-weight:700; margin-bottom:6px;}
+  .pillar p{color:var(--slate); font-size:14px;}
+
+  /* ===== PRODUCT SHOWCASE ===== */
+  .product-layout{
+    display:grid; grid-template-columns:0.95fr 1.05fr; gap:64px; align-items:center;
+  }
+  .phone-mock{
+    position:relative; width:min(100%,300px); margin:0 auto;
+    aspect-ratio:9/18.5;
+    background:linear-gradient(180deg, #182420, #0c1513);
+    border-radius:34px; border:1px solid var(--line);
+    padding:10px;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(76,217,168,0.05);
+  }
+  .phone-screen{
+    background:var(--brand); border-radius:24px; height:100%; overflow:hidden;
+    position:relative; display:flex; flex-direction:column;
+  }
+  .phone-header{padding:22px 18px 26px; color:#fff;}
+  .phone-header .greet{font-size:11px; opacity:.85; font-weight:500;}
+  .phone-header .name{font-size:16px; font-weight:800; margin-top:2px;}
+  .phone-body{
+    background:#f4f7f6; flex:1; border-radius:20px 20px 0 0; padding:16px 14px;
+  }
+  .phone-card{
+    background:var(--brand-deep); border-radius:16px; padding:16px; color:#fff; margin-bottom:12px;
+  }
+  .phone-card .t{font-size:13px; font-weight:800; margin-bottom:4px;}
+  .phone-card .s{font-size:11px; opacity:.8;}
+  .phone-row{
+    background:#fff; border-radius:12px; padding:12px; margin-bottom:10px;
+    display:flex; justify-content:space-between; align-items:center;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  .phone-row .dot{width:34px; height:34px; border-radius:10px; background:var(--brand); opacity:.15; flex-shrink:0;}
+  .phone-row .txt{flex:1; margin:0 10px;}
+  .phone-row .txt .l1{font-size:11.5px; font-weight:700; color:#0f2e28;}
+  .phone-row .txt .l2{font-size:10px; color:#7a8b86; margin-top:2px;}
+
+  .product-text .eyebrow{margin-bottom:16px;}
+  .product-text h2{font-size:clamp(26px,3.4vw,36px); font-weight:800; line-height:1.35; margin-bottom:18px;}
+  .product-text > p{color:var(--slate); font-size:15.5px; margin-bottom:28px;}
+  .feature-list{display:flex; flex-direction:column; gap:16px; margin-bottom:32px;}
+  .feature-item{display:flex; gap:14px; align-items:flex-start;}
+  .feature-check{
+    width:22px; height:22px; border-radius:6px; background:rgba(76,217,168,0.12);
+    border:1px solid rgba(76,217,168,0.35);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;
+  }
+  .feature-check svg{width:12px; height:12px;}
+  .feature-item .ftext b{display:block; font-size:14.5px; font-weight:700; margin-bottom:2px;}
+  .feature-item .ftext span{font-size:13.5px; color:var(--slate);}
+
+  .app-links{display:flex; gap:12px; flex-wrap:wrap; margin-top:30px;}
+  .app-links .btn-primary, .app-links .btn-ghost{font-size:14.5px; padding:12px 22px;}
+  .app-name-en{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--slate); letter-spacing:.06em; margin:6px 0 16px;}
+
+  .next-project{
+    margin-top:56px; padding-top:40px; border-top:1px solid var(--line-soft);
+    display:flex; align-items:baseline; gap:20px; flex-wrap:wrap;
+  }
+  .next-project p{color:var(--slate); font-size:14.5px; max-width:640px;}
+  @media (max-width:860px){ .next-project{flex-direction:column; gap:10px;} }
+
+  /* ===== STEPS (legit sequence) ===== */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-soft); border:1px solid var(--line-soft); border-radius:var(--radius); overflow:hidden;}
+  .step{background:var(--ink); padding:32px 26px;}
+  .step .num{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--brand-bright);
+    border:1px solid var(--line); border-radius:100px; width:34px; height:34px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+  }
+  .step h3{font-size:16px; font-weight:700; margin-bottom:8px;}
+  .step p{font-size:13.5px; color:var(--slate);}
+
+  /* ===== CONTACT ===== */
+  .contact-layout{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
+  .contact-info h2{font-size:clamp(26px,3.4vw,36px); font-weight:800; margin:16px 0 18px; line-height:1.35;}
+  .contact-info > p{color:var(--slate); font-size:15px; margin-bottom:30px; max-width:420px;}
+  .contact-rows{display:flex; flex-direction:column; gap:0;}
+  .contact-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 0; border-top:1px solid var(--line-soft);
+  }
+  .contact-row:last-child{border-bottom:1px solid var(--line-soft);}
+  .contact-row .label{font-size:13px; color:var(--slate-dim); font-family:'IBM Plex Mono',monospace;}
+  .contact-row .val{font-size:14.5px; font-weight:700;}
+  .contact-row a.val:hover{color:var(--brand-bright);}
+
+  form.contact-form{background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius); padding:32px;}
+  .form-field{margin-bottom:18px;}
+  .form-field label{display:block; font-size:12.5px; color:var(--slate); margin-bottom:8px; font-family:'IBM Plex Mono',monospace;}
+  .form-field input, .form-field textarea{
+    width:100%; background:var(--ink); border:1px solid var(--line);
+    border-radius:10px; padding:13px 14px; color:var(--paper); font-family:'Cairo',sans-serif; font-size:14.5px;
+    transition:border-color .2s;
+  }
+  .form-field input:focus, .form-field textarea:focus{outline:none; border-color:var(--brand-bright);}
+  .form-field textarea{min-height:100px; resize:vertical;}
+  .form-submit{
+    width:100%; background:var(--brand-bright); color:#06110d; font-weight:800; font-size:15px;
+    padding:14px; border-radius:10px; border:none; cursor:pointer; transition:background .2s;
+  }
+  .form-submit:hover{background:#65e3b6;}
+  .form-note{font-size:12px; color:var(--slate-dim); margin-top:12px; text-align:center;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line-soft); padding:44px 0;}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .footer-brand{display:flex; align-items:center; gap:12px;}
+  .footer-brand .logo-mark{width:26px; height:26px;}
+  .footer-brand span{font-weight:700; font-size:14.5px;}
+  footer .copy{font-size:12.5px; color:var(--slate-dim); font-family:'IBM Plex Mono',monospace;}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .about-layout, .product-layout, .contact-layout{grid-template-columns:1fr; gap:40px;}
+    .product-layout{direction:rtl;}
+    .steps{grid-template-columns:1fr;}
+    .phone-mock{margin-top:20px;}
+    .hero{padding:70px 0 50px;}
+    .pulse-wrap{height:110px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand-lockup">
+      <svg class="logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2b7a6e"/>
+            <stop offset="100%" stop-color="#0f2e28"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="100" fill="url(#lg1)"/>
+        <g fill="#edf3f0">
+          <polygon points="100,46 146,150 128,150 118,126 82,126 72,150 54,150 100,46 100,80 92,108 108,108 100,80"/>
+        </g>
+        <circle cx="144" cy="60" r="6" fill="#4cd9a8"/>
+      </svg>
+      <span class="name">أشورال<b>.</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">من نحن</a>
+      <a href="#services">خدماتنا</a>
+      <a href="#product">مشاريعنا</a>
+      <a href="/reayati/">رعايتي</a>
+      <a href="#contact">تواصل معنا</a>
+    </div>
+    <a href="#contact" class="nav-cta">تواصل معنا</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="eyebrow">شركة عراقية لتطوير التطبيقات — البصرة</span>
+        <h1>نطوّر ونُدير برمجيات تحمل <span>نبض</span> العراق الرقمي</h1>
+        <p class="lead">
+          أشورال شركة عراقية لتطوير التطبيقات وإدارة البرمجيات، مقرّها محافظة البصرة.
+          نبني منصات وتطبيقات موثوقة من الفكرة إلى التشغيل اليومي، وأحد مشاريعنا الحالية
+          تطبيق «رعايتي» للرعاية التمريضية المنزلية.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-primary">تعرّف على خدماتنا</a>
+          <a href="#contact" class="btn-ghost">تواصل معنا</a>
+        </div>
+      </div>
+
+      <div class="pulse-wrap">
+        <svg viewBox="0 0 1200 150" preserveAspectRatio="none">
+          <path class="pulse-line-dim" d="M0,75 L1200,75"/>
+          <path class="pulse-line" d="M0,75 L160,75 L185,75 L205,20 L225,130 L245,45 L265,75 L340,75 L365,75 L385,60 L405,90 L425,75 L520,75 L560,75 L560,35 L620,35 L620,115 L680,115 L680,75 L1200,75"/>
+        </svg>
+        <div class="pulse-caption">
+          <span>ASHURAL // SOFTWARE STUDIO</span>
+          <span>BASRA, IRAQ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">من نحن</span>
+        <h2>شركة عراقية لتطوير التطبيقات وإدارة البرمجيات</h2>
+        <p>مقرّنا محافظة البصرة، ونعمل على تصميم وبناء وتشغيل تطبيقات وأنظمة برمجية بجودة تنافس ما هو متوفر عالمياً، بفهم دقيق لاحتياجات السوق العراقي.</p>
+      </div>
+
+      <div class="about-layout">
+        <div class="about-text reveal">
+          <p>
+            أشورال ليست شركة منتج واحد، بل شركة برمجيات متكاملة: نصمم واجهات التطبيقات، نبني
+            الأنظمة الخلفية التي تشغّلها، وندير تشغيلها اليومي بعد الإطلاق. من الفكرة الأولى
+            إلى الصيانة والتطوير المستمر، نتولى المشروع بالكامل.
+          </p>
+          <p>
+            أحد مشاريعنا الحالية هو تطبيق «رعايتي»، منصة للرعاية التمريضية المنزلية تربط
+            العملاء بممرضين موثقين. نعمل على توسيع محفظة مشاريعنا لتشمل تطبيقات وأنظمة
+            في مجالات أخرى تخدم السوق العراقي.
+          </p>
+        </div>
+
+        <div class="pillars reveal">
+          <div class="pillar">
+            <span class="pillar-mark">٠١</span>
+            <div>
+              <h3>تطوير من الصفر</h3>
+              <p>نصمم وننفذ التطبيق كاملاً، من الواجهة إلى الخادم وقاعدة البيانات.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <span class="pillar-mark">٠٢</span>
+            <div>
+              <h3>إدارة برمجية مستمرة</h3>
+              <p>لا نسلّم المشروع وننسحب، بل نبقى على تشغيله وتطويره وصيانته.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <span class="pillar-mark">٠٣</span>
+            <div>
+              <h3>قرب من السوق العراقي</h3>
+              <p>نبني حلولاً مصمَّمة لظروف العراق تحديداً، لا نسخة مترجمة من منتج لسوق آخر.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">ماذا نعمل</span>
+        <h2>من الفكرة إلى التشغيل اليومي</h2>
+        <p>نتولى دورة حياة المشروع البرمجي كاملة، لا نكتفي بتسليم كود وننسحب.</p>
+      </div>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div class="num">٠١</div>
+          <h3>تطوير تطبيقات الجوال والويب</h3>
+          <p>نصمم وننفذ واجهات استخدام حديثة، لأنظمة أندرويد وiOS والويب، بتجربة مصممة للمستخدم العراقي.</p>
+        </div>
+        <div class="step">
+          <div class="num">٠٢</div>
+          <h3>الأنظمة الخلفية وقواعد البيانات</h3>
+          <p>نبني الخوادم وواجهات البرمجة (API) وقواعد البيانات التي تشغّل التطبيق بأمان واستقرار.</p>
+        </div>
+        <div class="step">
+          <div class="num">٠٣</div>
+          <h3>لوحات التحكم والإدارة</h3>
+          <p>ننشئ أنظمة إدارة داخلية تمكّن فرق العمل من متابعة وتشغيل المنصة يومياً بسهولة.</p>
+        </div>
+      </div>
+
+      <div class="next-project reveal">
+        <span class="eyebrow">وبعد الإطلاق</span>
+        <p>نستمر مع كل مشروع بعد إطلاقه: صيانة، تطوير مستمر، ودعم فني، بدل تسليمه وترك عملائنا وحدهم.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="alt">
+    <div class="wrap">
+      <div class="contact-layout">
+        <div class="contact-info reveal">
+          <span class="eyebrow">تواصل معنا</span>
+          <h2>نحب نسمع منك</h2>
+          <p>سواء كنت عميلاً، ممرضاً، أو مهتماً بالتعاون مع أشورال — نرد خلال يوم عمل واحد عادة.</p>
+          <div class="contact-rows">
+            <div class="contact-row"><span class="label">EMAIL</span><a class="val" href="mailto:info@ashural.com">info@ashural.com</a></div>
+            <div class="contact-row"><span class="label">LOCATION</span><span class="val">البصرة، العراق</span></div>
+            <div class="contact-row"><span class="label">PRODUCT</span><a class="val" href="/reayati/">رعايتي — Reayati</a></div>
+          </div>
+        </div>
+
+        <!-- ⚠️ بدّل abcd1234 بمعرّف استمارتك من formspree.io -->
+        <form class="contact-form reveal" action="https://formspree.io/f/abcd1234" method="POST">
+          <div class="form-field">
+            <label>الاسم</label>
+            <input type="text" name="name" required placeholder="اسمك الكامل" />
+          </div>
+          <div class="form-field">
+            <label>البريد الإلكتروني</label>
+            <input type="email" name="email" required placeholder="you@example.com" />
+          </div>
+          <div class="form-field">
+            <label>رسالتك</label>
+            <textarea name="message" required placeholder="اكتب رسالتك هنا..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">إرسال الرسالة</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT SPOTLIGHT: REAYATI -->
+  <section id="product">
+    <div class="wrap">
+      <div class="product-layout">
+        <div class="phone-mock reveal">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="greet">مرحباً،</div>
+              <div class="name">عزيزي العميل</div>
+            </div>
+            <div class="phone-body">
+              <div class="phone-card">
+                <div class="t">طلب الخدمة</div>
+                <div class="s">ممرضة متخصصة تصلك في أسرع وقت</div>
+              </div>
+              <div class="phone-row"><div class="dot"></div><div class="txt"><div class="l1">رعاية ما بعد العمليات</div><div class="l2">البصرة — اليوم</div></div></div>
+              <div class="phone-row"><div class="dot"></div><div class="txt"><div class="l1">قياس السكري والضغط</div><div class="l2">أسبوعي</div></div></div>
+              <div class="phone-row"><div class="dot"></div><div class="txt"><div class="l1">رعاية كبار السن</div><div class="l2">حسب الطلب</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-text reveal">
+          <span class="eyebrow">من محفظة مشاريعنا</span>
+          <h2>رعايتي — رعاية تمريضية منزلية، بضغطة واحدة</h2>
+          <div class="app-name-en">REAYATI — HOME NURSING CARE APP</div>
+          <p>أحد التطبيقات التي طوّرتها أشورال بالكامل، يربط العملاء بممرضين وممرضات موثقين لتقديم الرعاية الصحية داخل المنزل، بشفافية كاملة في السعر والموعد وهوية مقدّم الخدمة.</p>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#4cd9a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="ftext"><b>طلب فوري</b><span>اختر نوع الرعاية والموعد، ويصلك تأكيد خلال دقائق.</span></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#4cd9a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="ftext"><b>ممرضون موثقون</b><span>كل مقدّم خدمة يمر بتحقق هوية وشهادة قبل تفعيل حسابه.</span></div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-check"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#4cd9a8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="ftext"><b>تتبّع مباشر</b><span>تعرف مكان الممرض وموعد وصوله لحظة بلحظة.</span></div>
+            </div>
+          </div>
+
+          <!-- رابطا «نسخة الويب» و«Google Play» أُزيلا: الأول مقفل بكلمة مرور
+               والثاني لتطبيق غير منشور بعد. يُعادان عند النشر الفعلي. -->
+          <div class="app-links">
+            <a href="/reayati/" class="btn-primary">صفحة تطبيق رعايتي</a>
+            <span class="btn-ghost" style="cursor:default; opacity:.75;">يصدر قريباً</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN AS NURSE -->
+  <section id="join" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">للكوادر التمريضية</span>
+        <h2>كيف تنضم كممرض إلى رعايتي</h2>
+        <p>عملية بسيطة من ثلاث خطوات، مصمّمة لتوثّق كفاءتك دون أن تعقّد عليك البداية.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="num">١</div>
+          <h3>قدّم طلبك</h3>
+          <p>عبّئ بياناتك الأساسية ومعلوماتك المهنية داخل التطبيق.</p>
+        </div>
+        <div class="step">
+          <div class="num">٢</div>
+          <h3>وثّق هويتك</h3>
+          <p>ارفع الهوية والشهادة المهنية، ويراجعها فريقنا خلال وقت قصير.</p>
+        </div>
+        <div class="step">
+          <div class="num">٣</div>
+          <h3>ابدأ الاستلام</h3>
+          <p>بمجرد التفعيل، تبدأ باستلام طلبات الرعاية في منطقتك.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+
+  <div class="wrap footer-row">
+    <div class="footer-brand">
+      <svg class="logo-mark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="100" fill="#0f2e28"/>
+        <g fill="#edf3f0"><polygon points="100,46 146,150 128,150 118,126 82,126 72,150 54,150 100,46 100,80 92,108 108,108 100,80"/></g>
+      </svg>
+      <span>أشورال — Ashural</span>
+    </div>
+    <span class="copy">© 2026 ASHURAL · BASRA, IRAQ</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal
+  var els = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+</body>
+</html>

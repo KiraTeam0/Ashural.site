@@ -1,0 +1,49 @@
+# رعايتي — يحدّث reayati/posts.json من Instagram Graph API.
+#
+# التوكن ومعرّف الحساب يجيان من أسرار المستودع:
+#   Settings ← Secrets and variables ← Actions ← New repository secret
+#     IG_USER_ID        معرّف حساب إنستغرام للأعمال
+#     IG_ACCESS_TOKEN   توكن طويل الأمد (~60 يوم، يُجدَّد)
+#
+# بدون السرّين، التشغيل ينجح ويترك الملف مكانه — فالصفحة ما تنكسر.
+name: Instagram feed
+
+on:
+  schedule:
+    - cron: "17,47 * * * *"   # كل نصف ساعة، بدقائق غير مزدحمة
+  workflow_dispatch:           # تشغيل يدوي من تبويب Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-feed
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch the latest posts
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/fetch-instagram.mjs
+
+      - name: Commit if it changed
+        run: |
+          if [ -z "$(git status --porcelain reayati/posts.json)" ]; then
+            echo "nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reayati/posts.json
+          git commit -m "chore: refresh the Instagram feed"
+          git push
